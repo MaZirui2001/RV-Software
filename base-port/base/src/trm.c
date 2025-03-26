@@ -20,7 +20,7 @@ void putch(char ch) {
     // hint use `outb` function and SERIAL_PORT to access serial port
 }
 void halt(int code) {
-  asm volatile("mv a0, %0; ebreak" : :"r"(code));
+  asm volatile(".word 0x80000000" : :"r"(code));
   while(1);
 }
 

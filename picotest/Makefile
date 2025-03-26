@@ -1,6 +1,6 @@
 
 BASE_PORT = $(abspath ../base-port)
-SIM_PATH = $(abspath  ../../simulator)
+SIM_PATH = $(abspath  ../../)
 NAMES = pico
 SRCS = $(basename $(shell find src/ -name "*.S"))
 ARGS = -b
