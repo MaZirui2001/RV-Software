@@ -1,5 +1,5 @@
 BASE_PORT = $(abspath ../base-port)
-SIM_PATH = $(abspath ../../emulator)
+SIM_PATH = $(abspath ../../)
 # Colors
 COLOR_RED   		= \033[1;31m
 COLOR_GREEN 		= \033[1;32m
