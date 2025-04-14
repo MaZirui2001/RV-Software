@@ -18,6 +18,7 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 void putch(char ch) {
     // Lab6 TODO: implement serial port MMIO
     // hint use `outb` function and SERIAL_PORT to access serial port
+    outb(SERIAL_PORT, ch);
 }
 void halt(int code) {
   asm volatile(".word 0x80000000" : :"r"(code));
