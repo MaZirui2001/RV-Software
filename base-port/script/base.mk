@@ -6,7 +6,7 @@ CC = $(CROSS_COMPILE)gcc
 AS = $(CROSS_COMPILE)gcc
 
 
-CFLAGS = -MMD -march=rv32im_zicsr_zifencei -mabi=ilp32 -O3 $(INC_PATH)
+CFLAGS = -MMD -march=rv32im_zicsr_zifencei -mabi=ilp32 -Os $(INC_PATH)
 CFLAGS += -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector
 AFLAGS = -march=rv32im_zicsr -mabi=ilp32 
 ARFLAGS = rcs
