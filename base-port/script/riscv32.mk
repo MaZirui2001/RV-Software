@@ -1,5 +1,5 @@
-CROSS_COMPILE := riscv64-unknown-elf-
-COMMON_FLAGS  := -march=rv32im_zicsr_zifencei -mabi=ilp32 -fno-pic 
+CROSS_COMPILE := 
+COMMON_FLAGS  := --target=riscv32 -march=rv32im_zicsr_zifencei -mabi=ilp32 -g -fno-pic 
 CFLAGS        += $(COMMON_FLAGS) -static -fdata-sections -ffunction-sections
 AFLAGS        += $(COMMON_FLAGS) 
-LDFLAGS       += -melf32lriscv --no-warn-rwx-segments -static --gc-sections -e _start
+LDFLAGS       += -melf32lriscv -static --gc-sections -e _start

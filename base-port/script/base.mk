@@ -1,14 +1,15 @@
 
 # make ar
-CROSS_COMPILE := riscv64-unknown-elf-
-AR = $(CROSS_COMPILE)ar
-CC = $(CROSS_COMPILE)gcc
-AS = $(CROSS_COMPILE)gcc
+CROSS_COMPILE := 
+AR = $(CROSS_COMPILE)llvm-ar
+CC = $(CROSS_COMPILE)clang
+AS = $(CROSS_COMPILE)clang
 
+COMMON_FLAGS = -march=rv32im_zicsr_zifencei -mabi=ilp32 -Os --target=riscv32 -g
 
-CFLAGS = -MMD -march=rv32im_zicsr_zifencei -mabi=ilp32 -Os $(INC_PATH)
-CFLAGS += -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector
-AFLAGS = -march=rv32im_zicsr -mabi=ilp32 
+CFLAGS = -MMD $(COMMON_FLAGS) $(INC_PATH)
+CFLAGS += -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector 
+AFLAGS = $(COMMON_FLAGS)
 ARFLAGS = rcs
 
 BUILD_DIR = $(abspath ./build)

@@ -1,11 +1,11 @@
-
 #ifndef ARGV
 #define ARGV ""
 #endif
 #include <base.h>
 #include <dev-mmio.h>
-int main(const char *argv);
-static const char argv[] = ARGV;
+int main(int argc, const char *argv[]);
+static const char *argv[] = {ARGV, NULL};
+static const int argc = sizeof(argv) / sizeof(argv[0]);
 
 extern char _heap_start;
 extern char _pmem_start;
@@ -26,6 +26,6 @@ void halt(int code) {
 }
 
 void call_main() {
-  int ret = main(argv);
+  int ret = main(argc, argv);
   halt(ret);
 }

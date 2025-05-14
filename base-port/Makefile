@@ -4,12 +4,12 @@ ifeq ($(MAKECMDGOALS),)
   .DEFAULT_GOAL = image
 endif
 # Compilers
-CC 			= $(CROSS_COMPILE)gcc
-CXX 		= $(CROSS_COMPILE)g++
-AS 			= $(CROSS_COMPILE)gcc
-LD 			= $(CROSS_COMPILE)ld
-OBJ_DUMP 	= $(CROSS_COMPILE)objdump
-OBJ_COPY 	= $(CROSS_COMPILE)objcopy
+CC 			= $(CROSS_COMPILE)clang
+CXX 		= $(CROSS_COMPILE)clang++
+AS 			= $(CROSS_COMPILE)clang
+LD 			= $(CROSS_COMPILE)ld.lld
+OBJ_DUMP 	= $(CROSS_COMPILE)llvm-objdump
+OBJ_COPY 	= $(CROSS_COMPILE)llvm-objcopy
 
 # include 
 WORK_DIR  = $(abspath .)
@@ -18,7 +18,7 @@ INC_PATH += -I$(BASE_PORT)/base/include
 INC_PATH += -I$(BASE_PORT)/tool/include
 
 # FLAGS and LIBS
-CFLAGS    += -Os -Wall -Werror $(INC_PATH) -Wno-main -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -MMD
+CFLAGS    += -O3 -Wall -Werror $(INC_PATH) -Wno-main -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -MMD
 AFLAGS 	  += -MMD $(INC_PATH) 
 LDFLAGS   += -T $(BASE_PORT)/script/linker.ld --defsym=_pmem_start=0x80000000 --defsym=_entry_offset=0x0 
 LIBS 	  += $(BASE_PORT)/base/build/libbase.a $(BASE_PORT)/tool/build/libtool.a
@@ -56,7 +56,7 @@ $(LIBS):
 $(IMAGE).elf: $(OBJS) $(LIBS)
 	@echo "$(COLOR_YELLOW)[LD]$(COLOR_NONE) build/$(notdir $@)" 
 	@$(LD) $(LDFLAGS) -o $@ --start-group $(LINKAGE) --end-group
-	@$(OBJ_DUMP) -D $@ > $(IMAGE).txt
+	@$(OBJ_DUMP) -d $@ > $(IMAGE).txt
 	@$(OBJ_COPY) -O binary $@ $(IMAGE).bin
 
 image: $(IMAGE).elf
