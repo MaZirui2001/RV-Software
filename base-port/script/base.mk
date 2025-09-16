@@ -19,17 +19,17 @@ LIBKER = $(BUILD_DIR)/lib$(LIBNAME).a
 
 # Compile C to object file
 $(TAR_DIR)/%.o: %.c
-	@mkdir -p $(dir $@) && echo "\033[33m[CC]\033[0m $<"
+	@mkdir -p $(dir $@) && printf "\033[33m[CC]\033[0m $<\n"
 	@$(CC) $(CFLAGS) -c -o $@ $(realpath $<)
 
 # Compile assembly to object file
 $(TAR_DIR)/%.o: %.S
-	@mkdir -p $(dir $@) && echo "\033[33m[AS]\033[0m $<"
+	@mkdir -p $(dir $@) && printf "\033[33m[AS]\033[0m $<\n"
 	@$(AS) $(AFLAGS) -c -o $@ $(realpath $<)
 
 libkernel: $(LIBKER)
 $(LIBKER): $(OBJS)
-	@echo "\033[33m[AR]\033[0m build/$(notdir $@)"
+	@printf "\033[33m[AR]\033[0m build/$(notdir $@)\n"
 	@$(AR) $(ARFLAGS) $@ $(realpath $^)
 
 clean:
