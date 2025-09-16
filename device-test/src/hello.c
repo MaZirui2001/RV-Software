@@ -6,7 +6,7 @@ void hello() {
   }
 }
 
-int main(const char *args){
+int main(int argc, char **args){
   ioe_init();
   hello();
   return 0;
